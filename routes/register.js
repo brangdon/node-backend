@@ -39,11 +39,11 @@ router.get('/', function (req, res, next) {
 
 router.post("/", function (req, res) {
 
-    console.log('comment post')
+    console.log('register post')
     // console.log(JSON.parse(req))
-    console.log(req.body.firstParam)
-    console.log(req.body.secondParam)
-    console.log(req.body.state)
+    console.log(req.body.login)
+    console.log(req.body.password)
+    console.log(req.body.repeatPassword)
     console.log('------------')
 
 });
