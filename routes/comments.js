@@ -40,11 +40,24 @@ router.get('/', function (req, res, next) {
 router.post("/", function (req, res) {
 
     console.log('comment post')
-    // console.log(JSON.parse(req))
-    console.log(req.body.firstParam)
-    console.log(req.body.secondParam)
-    console.log(req.body.state)
+    // console.log(req.body.firstParam)
+    // console.log(req.body.secondParam)
+    console.log(req.body.comment)
     console.log('------------')
+
+    var comment  = {UserID: 1, Info: req.body.comment};
+
+    connection.query('INSERT INTO comments SET ?', comment, function(err, result) {
+        if (!err) {
+            console.log('Insert comment success');
+            // res.json(rows)
+        }
+
+        else {
+            console.log('Error while inserting comment');
+            res.json('error')
+        }
+    });
 
 });
 
