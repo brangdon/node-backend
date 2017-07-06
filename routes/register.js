@@ -46,6 +46,23 @@ router.post("/", function (req, res) {
     console.log(req.body.repeatPassword)
     console.log('------------')
 
+
+    var person  = {Login: req.body.login, Pass: req.body.password, IsAdmin: 0};
+
+
+
+    connection.query('INSERT INTO Persons SET ?', person, function(err, result) {
+        if (!err) {
+            console.log('Insert comment success');
+            // res.json(rows)
+        }
+
+        else {
+            console.log('Error while inserting comment');
+            res.json('error')
+        }
+    });
+
 });
 
 router.get("/:id", function (req, res) {

@@ -1,40 +1,23 @@
 var express = require('express');
 var router = express.Router();
-var mysql      = require('mysql');
+var mysql = require('mysql');
 var bodyParser = require("body-parser");
 router.use(bodyParser.urlencoded({extended: false}));
 
 
 var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'root',
-    database : 'sys'
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    database: 'sys'
 });
 
 connection.connect(function (err) {
     if (!err) {
-        console.log("Database is connected ... nn");
+        console.log("Database is connected ... login");
     } else {
-        console.log("Error connecting database ... nn");
+        console.log("Error connecting database ... login");
     }
-});
-
-router.get('/', function (req, res, next) {
-
-    connection.query('SELECT * from comments', function (err, rows, fields) {
-        // connection.end();
-        if (!err) {
-            console.log('The solution is: ', rows);
-            res.json(rows)
-        }
-
-        else {
-            console.log('Error while performing Query.');
-            res.json('error')
-        }
-    });
-
 });
 
 router.post("/", function (req, res) {
@@ -45,26 +28,26 @@ router.post("/", function (req, res) {
     console.log(req.body.password)
     console.log('------------')
 
-    res.send('good', 'good credentials');
-    res.redirect('/');
+    // res.send('good', 'good credentials');
 
-});
-
-router.get("/:id", function (req, res) {
-
-    connection.query('SELECT * from comments WHERE CommentID=' + req.params.id, function (err, rows, fields) {
-        // connection.end();
+    connection.query('SELECT * from Persons WHERE `Login` = ' + '"' + req.body.login + '"', function (err, rows, fields) {
         if (!err) {
-            console.log('The solution is: ', rows);
-            res.json(rows)
+            console.log('The solution is follwoing: ');
+            if (rows.length == 1) {
+                console.log(rows)
+                res.json(rows[0])
+            }
+
         }
 
         else {
             console.log('Error while performing Query.');
+            console.log(err)
             res.json('error')
         }
     });
 
 });
+
 
 module.exports = router;

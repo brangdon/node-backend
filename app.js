@@ -13,7 +13,11 @@ var login = require('./routes/login');
 var register = require('./routes/register');
 var annoucements = require('./routes/annoucements');
 
+var session = require("express-session");
+
 var app = express();
+
+app.use(session({resolve: true, saveUninitialized: true, secret: "aaaa1234"}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
