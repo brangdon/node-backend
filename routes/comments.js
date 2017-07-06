@@ -1,15 +1,15 @@
 var express = require('express');
 var router = express.Router();
-var mysql      = require('mysql');
+var mysql = require('mysql');
 var bodyParser = require("body-parser");
 router.use(bodyParser.urlencoded({extended: false}));
 
 
 var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'root',
-    database : 'sys'
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    database: 'sys'
 });
 
 connection.connect(function (err) {
@@ -40,21 +40,26 @@ router.get('/', function (req, res, next) {
 router.post("/", function (req, res) {
 
     console.log('comment post')
-    // console.log(req.body.firstParam)
-    // console.log(req.body.secondParam)
-    console.log(req.body.comment)
-    console.log('------------')
+    text = req.body.comment
+    userID = req.body.userID
+    imageID = req.body.imageID
+    // console.log(req.body.comment)
+    // console.log(req.body.userID)
+    // console.log(req.body.imageID)
 
-    var comment  = {UserID: 1, Info: req.body.comment};
-
-    connection.query('INSERT INTO comments SET ?', comment, function(err, result) {
+    var comment = {UserID: userID, ImageID: imageID, CommentText: text};
+    //
+    // console.log(comment)
+    // console.log('not working')
+    connection.query('INSERT INTO comments SET ?', comment, function (err, result) {
         if (!err) {
             console.log('Insert comment success');
-            // res.json(rows)
+            res.json('inserting comment success')
         }
 
         else {
             console.log('Error while inserting comment');
+            console.log(err)
             res.json('error')
         }
     });

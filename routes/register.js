@@ -49,12 +49,10 @@ router.post("/", function (req, res) {
 
     var person  = {Login: req.body.login, Pass: req.body.password, IsAdmin: 0};
 
-
-
     connection.query('INSERT INTO Persons SET ?', person, function(err, result) {
         if (!err) {
             console.log('Insert comment success');
-            // res.json(rows)
+            res.json(result)
         }
 
         else {
