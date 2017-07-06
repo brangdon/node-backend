@@ -63,7 +63,7 @@ router.post("/", function (req, res) {
 
 router.get("/:id", function (req, res) {
 
-    connection.query('SELECT * from comments WHERE CommentID=' + req.params.id, function (err, rows, fields) {
+    connection.query('SELECT * from comments WHERE ImageID=' + req.params.id, function (err, rows, fields) {
         // connection.end();
         if (!err) {
             console.log('The solution is: ', rows);
