@@ -21,11 +21,9 @@ connection.connect(function (err) {
 });
 
 router.get('/', function (req, res, next) {
-
-    connection.query('SELECT * from comments', function (err, rows, fields) {
-        // connection.end();
+    connection.query('SELECT t1.*, t2.Login from Comments t1, Persons t2 where t1.UserID = t2.PersonID', function (err, rows, fields) {
         if (!err) {
-            console.log('The solution is: ', rows);
+
             res.json(rows)
         }
 
@@ -67,9 +65,7 @@ router.post("/", function (req, res) {
 });
 
 router.get("/:id", function (req, res) {
-
-    connection.query('SELECT * from comments WHERE ImageID=' + req.params.id, function (err, rows, fields) {
-        // connection.end();
+    connection.query('SELECT t1.*, t2.Login from Comments t1, Persons t2 where t1.UserID = t2.PersonID and ImageID='+req.params.id, function (err, rows, fields) {
         if (!err) {
             console.log('The solution is: ', rows);
             res.json(rows)
