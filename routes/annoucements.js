@@ -35,6 +35,24 @@ router.get('/', function (req, res, next) {
 
 });
 
+router.delete("/:id", function (req, res) {
+
+    connection.query('delete from Annoucements WHERE AnnoucementID=' + req.params.id, function (err, rows, fields) {
+        // connection.end();
+        if (!err) {
+            // console.log('The solution is: ', rows);
+            res.json(rows)
+        }
+
+        else {
+            console.log('Error while performing Query annoucements.');
+            console.log(err)
+            res.json('error')
+        }
+    });
+
+});
+
 router.post("/", function (req, res) {
 
     console.log('annoucement post')
